@@ -1,0 +1,15 @@
+{
+  "name": "word2vec-test",
+  "version": "1.0.0",
+  "description": "a test of word2vec npm with harry potter",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fs-extra": "^10.0.1",
+    "word2vec": "^1.1.5"
+  }
+}
