@@ -1,6 +1,6 @@
 var w2v = require( 'word2vec' );
 
-let word = 'wizard'
+let word = 'muggle'
 
 w2v.loadModel("vectors.txt", (error, model) => {
     console.log("SIZE: ", model.size);
