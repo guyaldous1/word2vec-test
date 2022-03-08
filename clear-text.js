@@ -1,5 +1,6 @@
-// var w2v = require( 'word2vec' );
 const fs = require("fs-extra");
+const stream = require('stream');
+const Transform = stream.Transform || require('readable-stream').Transform;
 
 function clearText(text) {
     return text
@@ -8,10 +9,24 @@ function clearText(text) {
       .replace(/\s{2,}/g, " ");
   }
 
-async function clear(filePath) {
-  const contentRaw = await fs.readFile(filePath);
-  const content = clearText(contentRaw.toString());
-  return fs.writeFile('./cleared_text.txt', content);
+function read(filepath, output){
+
+const readStream = fs.createReadStream(filepath);
+const writeStream = fs.createWriteStream(output);
+
+
+const reverseStream = new Transform({
+  transform (data, encoding, callback) {
+      const content = clearText(data.toString());
+      this.push(content);
+      callback();
+  }
+});
+
+readStream.pipe(reverseStream).pipe(writeStream).on('finish', () => {
+  console.log(`Finished reversing the contents of ${filepath} and saving the output to ${output}.`);
+});
+
 }
 
-clear('text.txt')
+read('test.xml', './cleared_text.txt')
